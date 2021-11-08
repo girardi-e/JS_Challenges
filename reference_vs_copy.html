@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference vs Copy</title>
+</head>
+<body>
+  <h1>Javascript Fundamentals</h1>
+  <h3>Reference vs Copy: What is the difference?</h3>
+</body>
+
+<script>
+  //STRINGS, BOOLEANS AND NUMBERS
+  //The value goes into the variable and
+  //if you change the original variable,
+  // it won't update the other one.
+
+  let name = "Josh";
+  let name2 = name;
+  console.log(name, name2);
+
+  name = "Bob";
+  console.log(name, name2);
+
+  //ARRAYS
+
+  const players = ["Wes", "Mika", "Sarah", "Ryan", "Poppy"];
+
+  //make a copy of the original array
+  const team = players; //it references the original array
+  console.log(players, team);
+  //if you update the copy, it will also change the original array.
+  //it references back to it.
+  team[3] = "Lux";
+  console.log(players, team);
+
+  //If you want to make a real copy and update it, do one of these things:
+  let team2 = players.slice();
+  let team3 = [].concat(players);
+  let team4 = [...players];
+  let team5 = Array.from(players);
+
+  team2[2] = "Peter";
+  console.log(players, team2);
+
+  //OBJECTS
+  person = {
+    name: "Wes Bos",
+    age: 80
+  };
+
+  //makes a reference to the original object
+  const captain = person;
+  //it also changes the original object
+  captain.age = 75;
+  console.log(person, captain);
+
+  //The right way to make a copy of an object
+  const cap2 = Object.assign({}, person, {age: 70, number: 12});
+  console.log(person, cap2);
+  console.log(person, cap2);
+
+  const cap3 = {...person};
+  console.log("I'm a copy using spread...", cap3);
+
+  //THINGS TO NOTE => THIS IS ONLY ONE LEVEL DEEP,
+  //BOTH FOR ARRAYS AND OBJECTS
+
+  // This doesn`t work:
+  const Mia = {
+    name: "Mia Lang",
+    age: 34,
+    social: {
+      twitter: "Mia563",
+      facebook: "MiaLang"
+    },
+  };
+
+  const Lia = Object.assign({}, Mia);
+
+  //This changes the original object
+  Lia.social.twitter = "Lia543";
+  console.log(Mia.social.twitter, Lia.social.twitter);
+
+</script>
+</html>
