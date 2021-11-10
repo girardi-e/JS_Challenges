@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after { box-sizing: inherit; }
+    div {
+      width: 100%;
+      padding: 100px;
+    }
+    .one {
+      background: thistle;
+    }
+    .two {
+      background: mistyrose;
+    }
+    .three {
+      background: coral;
+    }
+  </style>
+  <title>Understanding Javascript's Capture</title>
+</head>
+<body>
+  <div class="one">
+    <div class="two">
+      <div class="three">
+        <button>Click Me</button>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    //WHEN YOU MAKE A CLICK, IT WILL RIPPLE UP ALL THE WAY UP THE DOCUMENT
+    //1. THE BROWSER CAPTURES ALL EVENTS FROM TOP TO BOTTOM
+    //2. THEN IT WILL TRIGGER THE EVENTS FROM BOTTOM TO TOP (BUBBLE UP)
+
+    const button = document.querySelector("button");
+    const divs = document.querySelectorAll("div");
+
+    function logText(event) {
+      console.log(this.classList.value);
+      //THIS PREVENTS THE BROWSER FROM BUBBLING UP
+      event.stopPropagation();
+    }
+
+    button.addEventListener("click", () => {
+      console.log("I can only be clicked once!")
+    }, {once: true} );
+
+    divs.forEach(div => div.addEventListener("click", logText, {
+      // THIS MAKES THE BROWSER FIRE UP EVENTS ON THE WAY DOWN
+      //capture:true
+    }));
+
+  </script>
+</body>
+</html>
