@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset = "utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale">
+  </head>
+
+  <body>
+    <div class= "inbox">
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">This is an inbox layout</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Check one item</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Hold down your Shift key</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Check a lower item</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Everything inbetween should also be se to checked</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Try to do it withoug any libraries</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Just regular Javascript</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Good Luck!</label>
+        </div>
+        <div class= "item">
+          <input type="checkbox" name="item">
+          <label for="item">Don`t forget to tweet your results!</label>
+        </div>
+      </body>
+    </div>
+
+  <script>
+    //get all the checkboxes
+    const checkboxes = document.querySelectorAll(".inbox input[type=checkbox]");
+
+    let lastChecked;
+
+    //handle event when a box is clicked
+    function handleCheck(event) {
+      let inBetween = false;
+      //check if shift key is down AND check if box is being checked
+      if (event.shiftKey && this.checked)
+      //loop over every single checkbox
+        checkboxes.forEach( checkbox => {
+      //grab all the boxes and check which ones are checked
+          console.log(checkbox);
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween;
+            console.log("starting to check them inBetween!")
+          }
+      //check the boxes that are inbetween
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        });
+        lastChecked = this;
+      }
+
+
+    //listen for when a box gets clicked
+    checkboxes.forEach( checkbox => checkbox.addEventListener("click", handleCheck));
+
+  </script>
+</html>
